@@ -268,21 +268,23 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border py-4">
             <div className="space-y-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={cn(
-                    'block px-3 py-2 text-base font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded',
-                    pathname === item.href
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground'
-                  )}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation
+                .filter((item): item is { title: string; icon: any; href: string } => 'href' in item)
+                .map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className={cn(
+                      'block px-3 py-2 text-base font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded',
+                      pathname === item.href
+                        ? 'text-primary bg-primary/10'
+                        : 'text-muted-foreground'
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
               {!isAuthenticated && (
                 <div className="pt-4 border-t border-border space-y-2">
                   <Link

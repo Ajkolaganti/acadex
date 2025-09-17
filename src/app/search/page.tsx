@@ -102,7 +102,7 @@ function SearchPageContent() {
 
     // Trigger search
     search(true);
-  }, [searchParams]);
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Auto-load more when scrolling
   useEffect(() => {
